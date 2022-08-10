@@ -227,3 +227,5 @@ $RECYCLE.BIN/
 .env
 
 db.sqlite3
+
+__pycache__/
