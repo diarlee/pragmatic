@@ -16,4 +16,19 @@
 
     <!-- Default css link -->
     <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+
+    <!-- 폴더에 저장된 폰트 적용 -->
+    <style>
+        @font-face {
+            font-family: 'NanumSquareR';
+            src: local('NanumSquareR'),
+            url("{% static 'fonts/NANUMSQUARER.TTF' %}") format('opentype');
+        }
+
+        @font-face {
+            font-family: 'NanumSquareEB';
+            src: local('NanumSquareEB'),
+            url("{% static 'fonts/NANUMSQUAREEB.TTF' %}") format('opentype');
+        }
+    </style>
 </head>
