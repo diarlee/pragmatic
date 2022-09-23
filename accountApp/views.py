@@ -1,10 +1,10 @@
 from urllib import request
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponseRedirect
 
 # Create your views here.
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.urls import reverse, reverse_lazy
 
 from accountApp.models import HelloWorld
@@ -20,7 +20,7 @@ def hello_world(request):
         new_hello_world.text = temp
         new_hello_world.save()
 
-        return redirect(reverse('accountApp:hello_world'))
+        return HttpResponseRedirect(reverse('accountApp:hello_world'))
     else:
         hello_world_list = HelloWorld.objects.all()
         return render(request, 'accountApp/hello_world.html', context={'hello_world_list' : hello_world_list})
@@ -41,3 +41,8 @@ class AccountUpdateView(UpdateView):
     form_class = AccountUpdateForm
     success_url = reverse_lazy('accountApp:login')
     template_name = 'accountApp/update.html'
+
+class AccountDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('accountApp:login')
+    template_name = 'accountApp/delete.html'
