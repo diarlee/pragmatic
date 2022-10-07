@@ -11,6 +11,9 @@ from django.urls import reverse, reverse_lazy
 
 from accountApp.models import HelloWorld
 from .forms import AccountUpdateForm
+from .decorators import account_ownership_required
+
+has_ownership = [account_ownership_required, login_required]
 
 @login_required
 def hello_world(request):
@@ -40,8 +43,8 @@ class AccountDetailView(DetailView):
     context_object_name = 'target_user'
     template_name = 'accountApp/detail.html'
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountUpdateView(UpdateView):
     model = User
     context_object_name = 'target_user'
@@ -49,8 +52,8 @@ class AccountUpdateView(UpdateView):
     success_url = reverse_lazy('accountApp:login')
     template_name = 'accountApp/update.html'
     
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
     context_object_name = 'target_user'
