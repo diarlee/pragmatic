@@ -26,7 +26,7 @@ class ProfileCreateView(CreateView):
         return reverse('accountApp:detail', kwargs={'pk': self.object.user.pk})
 
 @method_decorator(profile_ownership_required, 'get')
-# @method_decorator(profile_ownership_required, 'post')
+@method_decorator(profile_ownership_required, 'post')
 class ProfileUpdateView(UpdateView):
     model = Profile
     context_object_name = 'target_profile'
