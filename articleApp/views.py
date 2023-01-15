@@ -11,6 +11,10 @@ from django.urls import reverse, reverse_lazy
 
 from articleApp.decorators import article_ownership_required
 
+from django.views.generic.edit import FormMixin
+
+from commentApp.forms import CommentCreateForm
+
 # Create your views here.
 
 @method_decorator(login_required, 'get')
@@ -29,8 +33,9 @@ class ArticleCreateView(CreateView):
     def get_success_url(self):
         return reverse('articleApp:detail', kwargs={'pk':self.object.pk})
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(DetailView, FormMixin):
     model = Article
+    form_class = CommentCreateForm
     context_object_name = 'target_article'
     template_name = 'articleApp/detail.html'
 
