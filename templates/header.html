@@ -5,7 +5,10 @@
     <div class="pragmatic_header_navbar">
         <a href="{% url 'articleApp:list' %}" class="pragmatic_header_nav">
             <span>Articles</span>
-        <a href="" class="pragmatic_header_nav">nav2</a>
+        </a>
+        <a href="{% url 'projectApp:list' %}" class="pragmatic_header_nav">
+            <span>Projects</span>
+        </a>
         {% if not user.is_authenticated %}
         <a href="{% url 'accountApp:login' %}?next={{ request.path }}" class="pragmatic_header_nav">
             <span>login</span>
