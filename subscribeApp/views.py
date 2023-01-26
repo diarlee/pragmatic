@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, ListView
 
 from django.urls import reverse
 
@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 
 from subscribeApp.models import Subscription
 from projectApp.models import Project
+from articleApp.models import Article
 
 # Create your views here.
 
@@ -28,8 +29,26 @@ class SubsriptionView(RedirectView):
 
         if subscription.exists():
             subscription.delete()
-            print(1)
+            print()
         else:
             Subscription(user=user, project=project).save()
         
         return super(SubsriptionView, self).get(request, *args, **kwargs)
+
+@method_decorator(login_required, 'get')
+class SubscriptioinListView(ListView):
+    model = Article
+    context_object_name = 'article_list'
+    template_name = 'subscribeApp/list.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        projects = Subscription.objects.filter(user=self.request.user).values_list('project')
+        article_list = Article.objects.filter(project__in=projects)
+        return article_list
+
+    # def get_context_data(self, **kwargs):
+    #     subscription = Subscription.objects.filter(user=self.request.user).values_list('project')
+    #     return super().get_context_data(subscription = subscription, **kwargs) 
+
+    
