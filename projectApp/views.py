@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from django.views.generic.list import MultipleObjectMixin
 from articleApp.models import Article
