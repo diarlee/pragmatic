@@ -1,0 +1,59 @@
+    {% extends 'base.html' %}
+
+    {% block content %}
+
+        <div>
+            <div style="text-align: center; max-width: 500px; margin: 4rem auto;">
+
+                {% if target_user.profile %}
+
+                <img src="{{ target_user.profile.image.url }}" alt="" style="height: 10rem; width: 10rem; border-radius: 20rem; margin-bottom: 1rem;">
+
+                <h2 style="font-family: NanumSquareR;">
+                    {{ target_user.profile.nickname }}
+                    {% if target_user == user %}
+                    <a class="material-icons"
+                       style="box-shadow: 0 0 4px #ccc; padding: .4rem;"
+                       href="{% url 'profileApp:update' pk=target_user.profile.pk %}">
+                        edit
+                    </a>
+                    {% endif %}
+                </h2>
+
+                <h5 style="margin-bottom: 3rem;">
+                    {{ target_user.profile.message }}
+                </h5>
+
+                {% else %}
+                {% if target_user == user %}
+                <a href="{% url 'profileApp:create' %}">
+                    <h2 style="font-family: 'NanumSquareB';">
+                        Create Profile
+                    </h2>
+                </a>
+                {% else %}
+                <h2>
+                    닉네임 미설정
+                </h2>
+                {% endif %}
+                {% endif %}
+
+                {% if target_user == user %}
+                <a class="material-icons"
+                   style="box-shadow: 0 0 4px #ccc; padding: .4rem;"
+                   href="{% url 'accountApp:update' pk=user.pk %}">
+                        settings
+                </a>
+                <a class="material-icons"
+                   style="box-shadow: 0 0 4px #fcc; padding: .4rem;"
+                   href="{% url 'accountApp:delete' pk=user.pk %}">
+                        cancel
+                </a>
+                {% endif %}
+            </div>
+
+            <div>
+                {% include 'snippets/list_fragment.html' with article_list=object_list %}
+            </div>
+        </div>
+    {% endblock %}
