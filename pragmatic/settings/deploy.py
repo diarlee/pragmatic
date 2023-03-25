@@ -31,6 +31,6 @@ DATABASES = {
         'USER': 'django',
         'PASSWORD': 'password1234',
         'HOST': 'mardiadb',
-        'PORT': '3306',
+        'PORT': '5432',
     }
 }
