@@ -1,4 +1,4 @@
-from base import *
+from .base import *
 
 env = environ.Env(
     # set casting, default value
